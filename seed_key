@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ -d ~/.ssh/server_keys ]
+then
+  echo "~/.ssh/server_keys directory exists, nothing to do"
+else
+  echo "Creating ~/.ssh/server_keys irectory"
+  mkdir -p ~/.ssh/server_keys
+fi
+
+echo "Seeding key to "$1
+ssh-keygen -f ~/.ssh/server_keys/$1.new -t ed25519 -q -N ""
+ssh-copy-id -f -i ~/.ssh/server_keys/$1.new.pub $1
+mv ~/.ssh/server_keys/$1.new ~/.ssh/server_keys/$1
+mv ~/.ssh/server_keys/$1.new.pub ~/.ssh/server_keys/$1.pub
+scp clean_old_keys $1:~/.ssh/clean_old_keys
+ssh $1 'chmod +x ~/.ssh/clean_old_keys && ~/.ssh/clean_old_keys'
