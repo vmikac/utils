@@ -1,5 +1,24 @@
-# gitutils
-Random utils for making reporting from git easier
+# utils
+Random utils for making life easier 
+
+## seed_key
+
+Seeds key to some server from `~/.ssh/config` file. Idea is to nickname your servers, and that nickname will be used for key that is generated and pushed to the server. Additionally, key rotation is supported using additional `clean_old_keys` that leaves the key that was last added to authorized keys for specific username@hostname.
+
+### Usage
+
+Copy `seed_key`, and `clean_old_keys` to `~/.ssh` folder. 
+
+Create entry in '~/.ssh/config' that resembles the following:
+
+```
+Host prika
+    Hostname prika.my.domain.com 
+    User user_that_exists_on_prika
+    IdentityFile ~/.ssh/server_keys/prika <- this has to be same as in Host definition
+```
+
+Next run the script `./seed_key prika`, if everything is fine, you will need to type in password only once. After that you can `ssh prika` and things should work as expected. To rotate the key on `prika`, just run `./seed_key prika` from `~/.ssh` directory again. Action should be performed without any user input.
 
 ## get_committed_lines.sh
 
