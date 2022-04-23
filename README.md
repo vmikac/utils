@@ -7,7 +7,13 @@ Seeds key to some server from `~/.ssh/config` file. Idea is to nickname your ser
 
 ### Usage
 
-Copy `seed_key`, and `clean_old_keys` to `~/.ssh` folder. 
+Make sure `~/.ssh` exists.
+
+From the repository folder:
+```
+cp seed_key clean_old_keys ~/.ssh
+chmod +x ~/.ssh/seed_key
+```
 
 Create entry in '~/.ssh/config' that resembles the following:
 
